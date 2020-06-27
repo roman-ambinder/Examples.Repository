@@ -23,7 +23,7 @@ namespace Examples.Repository.Impl.EFCore
         private readonly Func<DbContext> _dbContextProvider;
         private readonly IKeyValueValidatorOf<TEntity, TKey> _keyVallueValidtor;
         private readonly IPrimaryKeyExpressionBuilder<TEntity, TKey> _primaryKeyExpressionBuilder;
-
+         
         public EFCoreRepositoryOf(Func<DbContext> dbContextProvider,
             IKeyValueValidatorOf<TEntity, TKey> keyVallueValidtor)
         {
