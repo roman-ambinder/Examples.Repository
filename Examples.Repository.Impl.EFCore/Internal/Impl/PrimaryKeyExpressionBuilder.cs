@@ -1,5 +1,4 @@
-﻿using Examples.Respository.Common.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,9 +8,9 @@ namespace Examples.Repository.Impl.EFCore.Internal
     internal sealed class PrimaryKeyExpressionBuilder<TEntity, TKey> :
         IPrimaryKeyExpressionBuilder<TEntity, TKey>
     {
-        public Expression<Func<TEntity, bool>> Build( 
+        public Expression<Func<TEntity, bool>> Build(
             DbContext dbContext,
-            TKey id)
+            in TKey id)
         {
             var propertyName = dbContext
                 .Model.FindEntityType(typeof(TEntity))

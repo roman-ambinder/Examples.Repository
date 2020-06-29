@@ -2,20 +2,20 @@
 
 namespace Examples.Respository.Common.Interfaces
 {
-    public interface IKeyValueValidatorOf<TEntity, Tkey>
+    public interface IKeyValueValidatorOf<Tkey, TValue>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        OperationResult Validate(TEntity entity);
+        OperationResult Validate(in TValue value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        OperationResult Validate(Tkey key);
+        OperationResult Validate(in Tkey key);
     }
 }

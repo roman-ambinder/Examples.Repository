@@ -20,7 +20,7 @@ namespace Examples.Respository.Common.DataTypes
             ErrorMessage = errorMessage;
         }
 
-        public static implicit operator bool(OperationResult opRes)
+        public static implicit operator bool(in OperationResult opRes)
             => opRes.Success;
 
         public override string ToString()

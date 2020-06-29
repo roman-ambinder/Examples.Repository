@@ -23,8 +23,8 @@ namespace Examples.Respository.Common.DataTypes
            => new OperationResultOf<T>(target);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static OperationResultOf<T> AsFailedOpResOf<T>(this OperationResult opRes)
-         => new OperationResultOf<T>(false, default, opRes.ErrorMessage);
+        public static OperationResultOf<T> AsFailedOpResOf<T>(this in OperationResult opRes)
+         => opRes.ErrorMessage.AsFailedOpResOf<T>();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static OperationResultOf<T> AsFailedOpResOf<T>(this string errorMessage)

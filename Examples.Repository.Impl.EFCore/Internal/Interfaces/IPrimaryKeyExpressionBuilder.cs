@@ -6,6 +6,6 @@ namespace Examples.Repository.Impl.EFCore.Internal
 {
     public interface IPrimaryKeyExpressionBuilder<TEntity, TKey>
     {
-        Expression<Func<TEntity, bool>> Build(DbContext dbContext, TKey key);
+        Expression<Func<TEntity, bool>> Build(DbContext dbContext, in TKey key);
     }
 }

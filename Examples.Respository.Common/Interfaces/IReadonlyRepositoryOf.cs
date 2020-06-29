@@ -10,7 +10,7 @@ namespace Examples.Respository.Common.Interfaces
     public interface IReadonlyRepositoryOf<TEntity, TKey>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="key"></param>
         /// <param name="cancellationToken"></param>
@@ -21,7 +21,7 @@ namespace Examples.Respository.Common.Interfaces
              params Expression<Func<TEntity, object>>[] toBeIncluded);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="cancellationToken"></param>

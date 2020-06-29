@@ -8,6 +8,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }

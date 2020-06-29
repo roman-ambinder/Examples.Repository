@@ -11,13 +11,13 @@ namespace Examples.Respository.Common.DataTypes
         : this(success: false, value: default, errorMessage: ex?.Message)
         { }
 
-        public OperationResultOf(TValue value)
+        public OperationResultOf(in TValue value)
             : this(success: true, value: value)
         { }
 
         public OperationResultOf(
             bool success,
-            TValue value,
+            in TValue value,
             string errorMessage = null)
         {
             Success = success;
@@ -25,13 +25,13 @@ namespace Examples.Respository.Common.DataTypes
             ErrorMessage = errorMessage;
         }
 
-        public static implicit operator bool(OperationResultOf<TValue> opRes)
+        public static implicit operator bool(in OperationResultOf<TValue> opRes)
             => opRes.Success;
 
-        public static implicit operator OperationResult(OperationResultOf<TValue> opRes)
+        public static implicit operator OperationResult(in OperationResultOf<TValue> opRes)
             => new OperationResult(opRes.Success, opRes.ErrorMessage);
 
-        public static implicit operator TValue(OperationResultOf<TValue> opRes)
+        public static implicit operator TValue(in OperationResultOf<TValue> opRes)
             => opRes.Value;
 
         public override string ToString()

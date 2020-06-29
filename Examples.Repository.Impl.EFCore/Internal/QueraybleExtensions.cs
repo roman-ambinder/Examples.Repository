@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
-
 namespace Examples.Repository.Impl.EFCore.Internal
 {
     internal static class QueraybleExtensions
@@ -14,7 +13,7 @@ namespace Examples.Repository.Impl.EFCore.Internal
         {
             if (toBeIncluded != null && toBeIncluded.Length > 0)
             {
-                foreach (Expression<Func<TEntity, object>> includeExression in toBeIncluded)
+                foreach (var includeExression in toBeIncluded)
                 {
                     query = query.Include(includeExression);
                 }
