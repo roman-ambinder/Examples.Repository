@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Examples.Respository.Common.Interfaces
 {
-    public interface IRepositoryOf<TEntity, TKey> : IReadonlyRepositoryOf<TEntity, TKey>
+    public interface IRepositoryOf<TEntity, TKey> :
+        IReadonlyRepositoryOf<TEntity, TKey>
         where TEntity : class
     {
         /// <summary>
@@ -15,7 +16,7 @@ namespace Examples.Respository.Common.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<OperationResultOf<TEntity>> TryAddAsync(
-            Func<TEntity, TEntity> initAction = null,
+            Action<TEntity> initAction = null,
             CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace Examples.Respository.Common.Interfaces
         /// <returns></returns>
         Task<OperationResultOf<TEntity>> TryUpdateAsync(
             TKey key,
-            Func<TEntity, TEntity> updateAction,
+            Action<TEntity> updateAction,
             CancellationToken cancellationToken = default);
 
         /// <summary>

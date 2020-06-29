@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Examples.Repository.Impl.EFCore.Internal
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PerCallDbContextProvider : IDbContextProvider
     {
         private readonly IDbContextFactory _dbContextFactory;
@@ -20,9 +23,10 @@ namespace Examples.Repository.Impl.EFCore.Internal
             try
             {
                 TResult res;
-                using (var db = _dbContextFactory.Create())
+                using (var dbSession = _dbContextFactory.Create())
                 {
-                    res = await usage(db).ConfigureAwait(false);
+                    res = await usage(dbSession)
+                        .ConfigureAwait(false);
                 }
 
                 return res.AsSuccessfullOpRes();

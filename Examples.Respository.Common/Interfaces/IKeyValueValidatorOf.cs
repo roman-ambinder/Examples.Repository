@@ -9,13 +9,13 @@ namespace Examples.Respository.Common.Interfaces
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        OperationResult Validate(in TValue value);
+         ref readonly OperationResult Validate(in TValue value);
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        OperationResult Validate(in Tkey key);
+        ref readonly OperationResult Validate(in Tkey key);
     }
 }

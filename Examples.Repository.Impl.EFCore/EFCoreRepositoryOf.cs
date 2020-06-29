@@ -22,14 +22,14 @@ namespace Examples.Repository.Impl.EFCore
         where TEntity : class, new()
     {
         private readonly IDbContextProvider _dbContextProvider;
-        private readonly IKeyValueValidatorOf<TKey, TEntity> _keyVallueValidtor;
+        private readonly IKeyValueValidatorOf<TKey, TEntity> _keyValueValidtor;
         private readonly IPrimaryKeyExpressionBuilder<TEntity, TKey> _primaryKeyExpressionBuilder;
 
         public EFCoreRepositoryOf(IDbContextProvider dbContextProvider,
             IKeyValueValidatorOf<TKey, TEntity> keyVallueValidtor = null)
         {
             _dbContextProvider = dbContextProvider;
-            _keyVallueValidtor = keyVallueValidtor ?? new VoidKeyValueValidatorOf<TKey, TEntity>();
+            _keyValueValidtor = keyVallueValidtor ?? new VoidKeyValueValidatorOf<TKey, TEntity>();
             _primaryKeyExpressionBuilder = new PrimaryKeyExpressionBuilder<TEntity, TKey>();
         }
 
@@ -37,7 +37,7 @@ namespace Examples.Repository.Impl.EFCore
              CancellationToken cancellation = default,
              params Expression<Func<TEntity, object>>[] toBeIncluded)
         {
-            var validationOpRes = _keyVallueValidtor.Validate(key);
+            var validationOpRes = _keyValueValidtor.Validate(key);
             if (!validationOpRes)
                 return Task.FromResult(validationOpRes.AsFailedOpResOf<TEntity>());
 
@@ -88,15 +88,15 @@ namespace Examples.Repository.Impl.EFCore
         }
 
         public Task<OperationResultOf<TEntity>> TryAddAsync(
-            Func<TEntity, TEntity> initAction = null,
+            Action<TEntity> initAction = null,
             CancellationToken cancellationToken = default)
         {
             return _dbContextProvider.TryUseAsync<TEntity>(async dbSession =>
             {
                 var newEntity = new TEntity();
-                newEntity = initAction?.Invoke(newEntity);
+                initAction?.Invoke(newEntity);
 
-                var validationOpRes = _keyVallueValidtor.Validate(newEntity);
+                var validationOpRes = _keyValueValidtor.Validate(newEntity);
                 if (!validationOpRes)
                     return validationOpRes.AsFailedOpResOf<TEntity>();
 
@@ -113,10 +113,10 @@ namespace Examples.Repository.Impl.EFCore
         }
 
         public async Task<OperationResultOf<TEntity>> TryUpdateAsync(TKey key,
-           Func<TEntity, TEntity> updateAction,
+           Action<TEntity> updateAction,
           CancellationToken cancellationToken = default)
         {
-            var validationOpRes = _keyVallueValidtor.Validate(key);
+            var validationOpRes = _keyValueValidtor.Validate(key);
             if (!validationOpRes)
                 return validationOpRes.AsFailedOpResOf<TEntity>();
 
@@ -128,18 +128,18 @@ namespace Examples.Repository.Impl.EFCore
 
             return await _dbContextProvider.TryUseAsync<TEntity>(async dbSession =>
             {
-                var foundEntity = getOpRes.Value;
+                var targetEntity = getOpRes.Value;
 
-                var updatedEntity = updateAction(foundEntity);
+                updateAction(targetEntity);
 
-                validationOpRes = _keyVallueValidtor.Validate(updatedEntity);
-                if (!validationOpRes)
-                    return validationOpRes.AsFailedOpResOf<TEntity>();
+                var valueValidationOpRes = _keyValueValidtor.Validate(targetEntity);
+                if (!valueValidationOpRes)
+                    return valueValidationOpRes.AsFailedOpResOf<TEntity>();
 
                 var dbSet = dbSession.Set<TEntity>();
-                dbSet.Attach(updatedEntity);
+                dbSet.Attach(targetEntity);
 
-                return await SaveChangesAndReturnResultAsync(dbSession, updatedEntity, cancellationToken)
+                return await SaveChangesAndReturnResultAsync(dbSession, targetEntity, cancellationToken)
                  .ConfigureAwait(false);
             });
         }
@@ -147,7 +147,7 @@ namespace Examples.Repository.Impl.EFCore
         public async Task<OperationResultOf<TEntity>> TryRemoveAsync(TKey key,
             CancellationToken cancellationToken = default)
         {
-            var validationOpRes = _keyVallueValidtor.Validate(key);
+            var validationOpRes = _keyValueValidtor.Validate(key);
             if (!validationOpRes)
                 return validationOpRes.AsFailedOpResOf<TEntity>();
 
