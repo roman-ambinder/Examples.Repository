@@ -15,10 +15,9 @@ namespace Examples.Repository.EFCoreRepositoryTests
         {
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
-            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
 
             //Act
-            var opRes = await repository.TryAddAsync(person).ConfigureAwait(false);
+            var opRes = await repository.TryAddAsync(newEntity: CreatePerson()).ConfigureAwait(false);
 
             //Assert
             Assert.IsTrue(opRes, opRes.ErrorMessage);
@@ -29,8 +28,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
         {
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
-            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
+            var addOpRes = await repository.TryAddAsync(newEntity: CreatePerson()).ConfigureAwait(false);
             Assert.IsTrue(addOpRes, addOpRes.ErrorMessage);
 
             //Act
@@ -48,8 +46,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
             //Arrange
             const string updatedValue = "Updated";
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
-            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
+            var addOpRes = await repository.TryAddAsync(newEntity: CreatePerson()).ConfigureAwait(false);
             Assert.IsTrue(addOpRes, addOpRes.ErrorMessage);
             var existingEntityId = addOpRes.Value.Id;
             var getOpRes = await repository.TryGetSingleAsync(existingEntityId).ConfigureAwait(false);
@@ -71,13 +68,13 @@ namespace Examples.Repository.EFCoreRepositoryTests
             Assert.AreEqual(getOpRes.Value.LastName, updatedValue);
         }
 
+
         [TestMethod]
         public async Task ExistingPerson_Remove_Removed()
         {
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
-            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
+            var addOpRes = await repository.TryAddAsync(newEntity: CreatePerson()).ConfigureAwait(false);
             var existingEntityId = addOpRes.Value.Id;
 
             //Act
@@ -89,6 +86,8 @@ namespace Examples.Repository.EFCoreRepositoryTests
             var getOpRes = await repository.TryGetSingleAsync(existingEntityId).ConfigureAwait(false);
             Assert.IsFalse(getOpRes);
         }
+
+        private static Person CreatePerson() => new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
 
         private static async Task<EFCoreRepositoryOf<Person, int>> TryGetRepositoryAsync()
         {
