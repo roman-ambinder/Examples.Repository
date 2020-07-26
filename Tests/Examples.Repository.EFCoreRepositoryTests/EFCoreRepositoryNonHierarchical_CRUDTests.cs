@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Examples.Repository.EFCoreRepositoryTests
 {
     [TestClass]
-    public class EFCoreRepositoryNonHierarchicalEntityTests
+    public class EFCoreRepositoryNonHierarchical_CRUDTests
     {
         [TestMethod]
         public async Task NonExistingPerson_Add_Added()
