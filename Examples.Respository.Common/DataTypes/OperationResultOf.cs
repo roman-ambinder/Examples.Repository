@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Examples.Respository.Common.DataTypes
+namespace Examples.Repository.Common.DataTypes
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance",
         "U2U1004:Public value types should implement equality",

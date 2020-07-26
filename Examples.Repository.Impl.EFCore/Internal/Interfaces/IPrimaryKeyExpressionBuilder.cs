@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Examples.Repository.Impl.EFCore.Internal
+namespace Examples.Repository.Impl.EFCore.Internal.Interfaces
 {
     public interface IPrimaryKeyExpressionBuilder<TEntity, TKey>
     {

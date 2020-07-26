@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Examples.Repository.Impl.EFCore.Internal.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Examples.Repository.Impl.EFCore.Internal
+namespace Examples.Repository.Impl.EFCore.Internal.Impl
 {
     internal sealed class PrimaryKeyExpressionBuilder<TEntity, TKey> :
         IPrimaryKeyExpressionBuilder<TEntity, TKey>

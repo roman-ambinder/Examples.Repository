@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Examples.Respository.Common.DataTypes
+namespace Examples.Repository.Common.DataTypes
 {
     /// <summary>
     ///
@@ -9,11 +9,11 @@ namespace Examples.Respository.Common.DataTypes
     public static class OpResExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static OperationResultOf<T> AsSuccessfullOpRes<T>(this T target)
+        public static OperationResultOf<T> AsSuccessfulOpRes<T>(this T target)
             => new OperationResultOf<T>(target);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static OperationResultOf<TBase> AsSuccessfullOpRes<TImpl, TBase>(
+        public static OperationResultOf<TBase> AsSuccessfulOpRes<TImpl, TBase>(
             this TImpl target)
             where TImpl : TBase
           => new OperationResultOf<TBase>((TBase)target);

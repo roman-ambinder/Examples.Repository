@@ -1,6 +1,6 @@
-﻿using Examples.Respository.Common.DataTypes;
+﻿using Examples.Repository.Common.DataTypes;
 
-namespace Examples.Respository.Common.Interfaces
+namespace Examples.Repository.Common.Interfaces
 {
     public interface IKeyValueValidatorOf<Tkey, TValue>
     {
@@ -9,7 +9,7 @@ namespace Examples.Respository.Common.Interfaces
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-         ref readonly OperationResult Validate(in TValue value);
+        ref readonly OperationResult Validate(in TValue value);
 
         /// <summary>
         ///

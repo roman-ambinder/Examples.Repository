@@ -1,13 +1,13 @@
-﻿using Examples.Respository.Common.DataTypes;
+﻿using Examples.Repository.Common.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Examples.Respository.Common.Interfaces
+namespace Examples.Repository.Common.Interfaces
 {
-    public interface IReadonlyRepositoryOf<TEntity, TKey>
+    public interface IReadonlyRepositoryOf<TEntity, in TKey>
     {
         /// <summary>
         ///

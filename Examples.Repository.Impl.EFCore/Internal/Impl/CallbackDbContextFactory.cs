@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Examples.Repository.Impl.EFCore.Internal.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Examples.Repository.Impl.EFCore.Internal.Impl

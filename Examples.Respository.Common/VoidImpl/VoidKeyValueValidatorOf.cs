@@ -1,7 +1,7 @@
-﻿using Examples.Respository.Common.DataTypes;
-using Examples.Respository.Common.Interfaces;
+﻿using Examples.Repository.Common.DataTypes;
+using Examples.Repository.Common.Interfaces;
 
-namespace Examples.Respository.Common.VoidImpl
+namespace Examples.Repository.Common.VoidImpl
 {
     /// <summary>
     ///
