@@ -185,6 +185,8 @@ namespace Examples.Repository.Impl.EFCore
             if (!getOpRes)
             {
                 var entity = newEntityFactory();
+                updateAction(entity);
+
                 return await TryAddAsync(entity, cancellationToken).ConfigureAwait(false);
             }
 
