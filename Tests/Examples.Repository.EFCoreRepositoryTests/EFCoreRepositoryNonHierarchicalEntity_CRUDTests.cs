@@ -8,7 +8,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
 {
     [TestClass]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class EFCoreRepositoryNonHierarchical_CRUDTests
+    public class EFCoreRepositoryNonHierarchicalEntity_CRUDTests
     {
         [TestMethod]
         public async Task NonExistingPerson_Add_Added()
