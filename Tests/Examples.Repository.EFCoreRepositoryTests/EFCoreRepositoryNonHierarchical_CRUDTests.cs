@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Examples.Repository.EFCoreRepositoryTests.Entities;
 using Examples.Repository.Impl.EFCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 namespace Examples.Repository.EFCoreRepositoryTests
 {
     [TestClass]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class EFCoreRepositoryNonHierarchical_CRUDTests
     {
         [TestMethod]
@@ -13,11 +15,10 @@ namespace Examples.Repository.EFCoreRepositoryTests
         {
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
+            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
 
             //Act
-            var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var opRes = await repository.TryAddAsync(person)
-                .ConfigureAwait(false);
+            var opRes = await repository.TryAddAsync(person).ConfigureAwait(false);
 
             //Assert
             Assert.IsTrue(opRes, opRes.ErrorMessage);
@@ -29,8 +30,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
             var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person)
-                .ConfigureAwait(false);
+            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
             Assert.IsTrue(addOpRes, addOpRes.ErrorMessage);
 
             //Act
@@ -49,12 +49,10 @@ namespace Examples.Repository.EFCoreRepositoryTests
             const string updatedValue = "Updated";
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
             var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person)
-                .ConfigureAwait(false);
-            var existingEntityId = addOpRes.Value.Id;
+            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
             Assert.IsTrue(addOpRes, addOpRes.ErrorMessage);
-            var getOpRes = await repository.TryGetSingleAsync(existingEntityId)
-                .ConfigureAwait(false);
+            var existingEntityId = addOpRes.Value.Id;
+            var getOpRes = await repository.TryGetSingleAsync(existingEntityId).ConfigureAwait(false);
             Assert.IsTrue(getOpRes, getOpRes.ErrorMessage);
             Assert.AreEqual(getOpRes.Value, addOpRes.Value);
 
@@ -79,8 +77,7 @@ namespace Examples.Repository.EFCoreRepositoryTests
             //Arrange
             var repository = await TryGetRepositoryAsync().ConfigureAwait(false);
             var person = new Person(age: 10, firstName: "Roman", lastName: "Ambinder");
-            var addOpRes = await repository.TryAddAsync(person)
-                .ConfigureAwait(false);
+            var addOpRes = await repository.TryAddAsync(person).ConfigureAwait(false);
             var existingEntityId = addOpRes.Value.Id;
 
             //Act
@@ -96,10 +93,8 @@ namespace Examples.Repository.EFCoreRepositoryTests
         private static async Task<EFCoreRepositoryOf<Person, int>> TryGetRepositoryAsync()
         {
             var dbContextProvider = new PreCallPeopleDbContextProvider();
-            var repository = new EFCoreRepositoryOf<Person, int>(
-                dbContextProvider);
-            await dbContextProvider.TryMigrateAsync(recreate: true)
-                .ConfigureAwait(false);
+            var repository = new EFCoreRepositoryOf<Person, int>(dbContextProvider);
+            await dbContextProvider.TryMigrateAsync(recreate: true).ConfigureAwait(false);
             return repository;
         }
     }
